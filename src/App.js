@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import Loader from "react-loader-spinner";
+import { Component } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  state = {};
+  componentDidMount() {}
+
+  render() {
+    return (
+      <div>
+        <Loader
+          type='Puff'
+          color='darkgrey'
+          height={50}
+          width={50}
+          timeout={5000} //3 secs
+        />
+      </div>
+    );
+  }
 }
-
-export default App;
