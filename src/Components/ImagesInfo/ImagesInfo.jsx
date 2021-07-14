@@ -19,27 +19,36 @@ export default class ImagesInfo extends Component {
     const nextPage = this.state.page;
 
     if (prevName !== nextName) {
-      this.setState({ page: 1, images: [] });
+      this.setState({ images: [] });
+      this.fetchImagesOnClick(nextName, nextPage);
     }
 
-    if (prevName !== nextName || prevPage !== nextPage) {
+    if (prevPage !== nextPage && nextPage !== 1) {
       this.setState({ status: "pending" });
-      imagesAPI
-        .fetchImages(nextName, nextPage)
-        .then((newImages) => {
-          if (newImages.total !== 0) {
-            this.setState((prevState) => ({
-              images: [...prevState.images, ...newImages.hits],
-              status: "resolved",
-            }));
-            return;
-          }
-
-          return Promise.reject(new Error("Invalid request"));
-        })
-        .catch((error) => this.setState({ error, status: "rejected" }));
+      this.fetchImagesOnClick(nextName, nextPage);
     }
   }
+
+  fetchImagesOnClick = (nextName, nextPage) => {
+    this.setState({ status: "pending" });
+
+    imagesAPI
+      .fetchImages(nextName, nextPage)
+      .then((newImages) => {
+        if (newImages.total !== 0) {
+          this.setState(({ images }) => ({
+            images: [...images, ...newImages.hits],
+            status: "resolved",
+          }));
+        }
+        nextPage > 1 &&
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: "smooth",
+          });
+      })
+      .catch((error) => this.setState({ error, status: "rejected" }));
+  };
 
   onClickLoadMore = () => {
     this.setState((prevState) => ({
