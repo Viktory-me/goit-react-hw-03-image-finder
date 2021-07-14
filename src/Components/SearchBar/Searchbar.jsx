@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default class Searchbar extends Component {
   state = {
-    imageName: "",
+    value: "",
   };
 
   static propTypes = {
@@ -13,13 +13,14 @@ export default class Searchbar extends Component {
   };
 
   handleNameChange = (e) => {
-    this.setState({ imageName: e.currentTarget.value.toLowerCase() });
+    const value = e.target.value;
+    this.setState({ value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
 
-    if (this.state.imageName.trim() === "") {
+    if (this.state.value.trim() === "") {
       toast.dark("🦄Please enter search query", {
         position: "top-center",
         autoClose: 5000,
@@ -32,19 +33,23 @@ export default class Searchbar extends Component {
       return;
     }
 
-    this.props.onSubmit(this.state.imageName);
+    this.props.onSubmit(this.state.value);
+  };
 
-    this.setState({ imageName: "" });
+  handleClearSearchbar = () => {
+    this.setState({ value: "" });
   };
 
   render() {
+    const { value } = this.state;
     return (
       <header className='Searchbar'>
         <form className='SearchForm' onSubmit={this.handleSubmit}>
           <button type='submit' className='SearchForm-button'></button>
           <input
-            value={this.state.imageName}
+            value={value}
             onChange={this.handleNameChange}
+            onClick={this.handleClearSearchbar}
             className='SearchForm-input'
             type='text'
             autoComplete='off'

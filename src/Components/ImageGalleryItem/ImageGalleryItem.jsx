@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Modal from "../Modal/Modal";
 
 class ImageGalleryItem extends Component {
   state = {
@@ -12,27 +13,26 @@ class ImageGalleryItem extends Component {
     largeImageUrl: PropTypes.string.isRequired,
   };
 
-  // toggleModal = () => {
-  //   this.setState(({ showModal }) => ({
-  //     showModal: !showModal,
-  //   }));
-  // };
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
 
   render() {
-    const { src, alt } = this.props;
-    // const { showModal } = this.state;
-
+    const { src, alt, largeImageUrl } = this.props;
+    const { showModal } = this.state;
     return (
       <li className='ImageGalleryItem'>
         <img
-          // onClick={this.toggleModal}
+          onClick={this.toggleModal}
           src={src}
           alt={alt}
           className='ImageGalleryItemImage'
         />
-        {/* {showModal && (
+        {showModal && (
           <Modal onClose={this.toggleModal} src={largeImageUrl} alt={alt} />
-        )} */}
+        )}
       </li>
     );
   }

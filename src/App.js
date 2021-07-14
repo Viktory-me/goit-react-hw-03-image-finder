@@ -7,19 +7,18 @@ import ImagesInfo from "./Components/ImagesInfo/ImagesInfo";
 
 export default class App extends Component {
   state = {
-    imageName: "",
+    search: "",
   };
-  componentDidMount() {}
 
-  handleFormSubmit = (imageName) => {
-    this.setState({ imageName });
+  handleFormSubmit = (e) => {
+    return this.setState({ search: e });
   };
 
   render() {
     return (
       <div>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImagesInfo imageName={this.state.imageName} />
+        <ImagesInfo imageName={this.state.search} />
 
         <ToastContainer
           position='top-center'

@@ -2,6 +2,7 @@ import { Component } from "react";
 import Loader from "react-loader-spinner";
 import imagesAPI from "../Services/imagesAPI";
 import ImageGallery from "../ImageGallery/ImageGallery";
+import Button from "../Button/Button";
 
 export default class ImagesInfo extends Component {
   state = {
@@ -9,6 +10,7 @@ export default class ImagesInfo extends Component {
     error: null,
     status: "idle",
     page: 1,
+    searchQuery: "",
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -39,6 +41,7 @@ export default class ImagesInfo extends Component {
         .catch((error) => this.setState({ error, status: "rejected" }));
     }
   }
+
   onClickLoadMore = () => {
     this.setState((prevState) => ({
       page: prevState.page + 1,
@@ -76,9 +79,7 @@ export default class ImagesInfo extends Component {
       return (
         <>
           <ImageGallery images={this.state.images} />
-          <button onClick={this.onClickLoadMore} page={this.state.page}>
-            More
-          </button>
+          <Button onClick={this.onClickLoadMore} page={this.state.page} />
         </>
       );
     }
