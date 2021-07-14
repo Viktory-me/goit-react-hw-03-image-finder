@@ -10,7 +10,6 @@ export default class ImagesInfo extends Component {
     error: null,
     status: "idle",
     page: 1,
-    searchQuery: "",
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -20,7 +19,7 @@ export default class ImagesInfo extends Component {
     const nextPage = this.state.page;
 
     if (prevName !== nextName) {
-      this.setState({ page: 1 });
+      this.setState({ page: 1, images: [] });
     }
 
     if (prevName !== nextName || prevPage !== nextPage) {

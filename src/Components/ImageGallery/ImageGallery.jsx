@@ -4,9 +4,9 @@ import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
 function ImageGallery({ images, onClick }) {
   return (
     <ul className='ImageGallery' onClick={onClick}>
-      {images.map((image) => (
+      {images.map((image, index) => (
         <ImageGalleryItem
-          key={image.id}
+          key={index}
           src={image.webformatURL}
           alt={image.tags}
           largeImageUrl={image.largeImageURL}
