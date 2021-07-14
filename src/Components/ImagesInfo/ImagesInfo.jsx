@@ -40,12 +40,14 @@ export default class ImagesInfo extends Component {
             images: [...images, ...newImages.hits],
             status: "resolved",
           }));
+          nextPage > 1 &&
+            window.scrollTo({
+              top: document.documentElement.scrollHeight,
+              behavior: "smooth",
+            });
+          return;
         }
-        nextPage > 1 &&
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: "smooth",
-          });
+        return Promise.reject(new Error("Invalid request"));
       })
       .catch((error) => this.setState({ error, status: "rejected" }));
   };
