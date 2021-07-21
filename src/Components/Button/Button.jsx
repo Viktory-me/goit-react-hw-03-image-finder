@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
-    page: PropTypes.number.isRequired,
+    page: PropTypes.number,
   };
 
   scroll = () => {
